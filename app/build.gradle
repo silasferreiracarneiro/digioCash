@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -31,6 +32,21 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$rootProject.ext.recyclerView"
     implementation "androidx.cardview:cardview:$rootProject.ext.carView"
 
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofit"
+    implementation "com.google.code.gson:gson:$rootProject.ext.gson"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.gsonConverter"
+    implementation "com.squareup.picasso:picasso:$rootProject.ext.picasso"
+
+    implementation "com.google.dagger:dagger-android:${rootProject.ext.dagger}"
+    implementation "com.google.dagger:dagger-android-support:${rootProject.ext.dagger}"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.ext.coroutines"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$rootProject.ext.coroutinesAdapter"
+
+    kapt "com.google.dagger:dagger-android-processor:${rootProject.ext.dagger}"
+    kapt "com.google.dagger:dagger-compiler:${rootProject.ext.dagger}"
+
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.ext.coroutinesCore"
     testImplementation "junit:junit:$rootProject.ext.junit"
     androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.extJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.ext.espresso"

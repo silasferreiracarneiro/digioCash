@@ -19,7 +19,7 @@ import br.com.silas.digiocash.R
 import br.com.silas.digiocash.adapter.ProductAdapter
 import br.com.silas.digiocash.adapter.SpotlightAdapter
 import br.com.silas.digiocash.model.Cash
-import br.com.silas.digiocash.model.HomeRequest
+import br.com.silas.digiocash.api.response.HomeResponse
 import br.com.silas.digiocash.model.Products
 import br.com.silas.digiocash.model.Spotlight
 import br.com.silas.digiocash.utils.getColoredString
@@ -98,7 +98,7 @@ class HomeActivity : AppCompatActivity() {
         Snackbar.make(container, message ?: getString(R.string.error_dafault), Snackbar.LENGTH_LONG).show()
     }
 
-    private fun secessCall(result: HomeRequest?) {
+    private fun secessCall(result: HomeResponse?) {
         result?.let {
             setSpotlight(it.spotlight)
             setCash(it.cash)

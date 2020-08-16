@@ -22,6 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -53,7 +57,10 @@ dependencies {
     implementation "android.arch.lifecycle:viewmodel:${rootProject.ext.lifecycle}"
 
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.ext.coroutinesCore"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.ext.coroutinesTest"
     testImplementation "junit:junit:$rootProject.ext.junit"
+    testImplementation "io.mockk:mockk:$rootProject.ext.mockk"
+    testImplementation "io.mockk:mockk-common:$rootProject.ext.mockk"
     androidTestImplementation "androidx.test.ext:junit:$rootProject.ext.extJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.ext.espresso"
 }

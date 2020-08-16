@@ -4,8 +4,10 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -25,6 +27,7 @@ import br.com.silas.digiocash.viewmodel.HomeViewModel
 import br.com.silas.digiocash.viewmodel.events.HomeViewModelEvent
 import br.com.silas.digiocash.viewmodel.events.HomeViewModelState
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity() {
@@ -34,6 +37,8 @@ class HomeActivity : AppCompatActivity() {
 
     lateinit var viewModel: HomeViewModel
 
+    private lateinit var container: ConstraintLayout
+    private lateinit var progress: ProgressBar
     private lateinit var recyclerOferta: RecyclerView
     private lateinit var recyclerProduto: RecyclerView
     private lateinit var tituloDigioCash: TextView
@@ -58,6 +63,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun bindProperties() {
+        this.container = findViewById(R.id.container_layout)
+        this.progress = findViewById(R.id.progress_home)
         this.recyclerOferta = findViewById(R.id.recycler_ofertas)
         this.recyclerProduto = findViewById(R.id.recycler_produtos)
         this.tituloDigioCash = findViewById(R.id.txt_digio_cash)
@@ -71,16 +78,24 @@ class HomeActivity : AppCompatActivity() {
     private fun bindObservable() {
         viewModel.viewEvent.observe(this, Observer {
             when (it) {
-                is HomeViewModelEvent.ShowLoading -> null
+                is HomeViewModelEvent.ShowLoading -> showOrHideProgress(it.status)
             }
         })
 
         viewModel.viewState.observe(this, Observer {
             when (it) {
                 is HomeViewModelState.SucessCallApi -> secessCall(it.result)
-                is HomeViewModelState.ErrorCallApi -> null
+                is HomeViewModelState.ErrorCallApi -> errorCallApi(it.message)
             }
         })
+    }
+
+    private fun showOrHideProgress(status: Int) {
+        progress.visibility = status
+    }
+
+    private fun errorCallApi(message: String?) {
+        Snackbar.make(container, message ?: getString(R.string.error_dafault), Snackbar.LENGTH_LONG).show()
     }
 
     private fun secessCall(result: HomeRequest?) {

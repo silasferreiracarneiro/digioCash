@@ -34,7 +34,7 @@ class HomeViewModel @Inject constructor(val repository: HomeRepository) : ViewMo
     private fun afterCall(result: ResultApi<HomeRequest>) {
         when (result.isSucess()) {
             true -> state.postValue(HomeViewModelState.SucessCallApi(result.value))
-            false -> state.postValue(HomeViewModelState.ErrorCallApi)
+            false -> state.postValue(HomeViewModelState.ErrorCallApi(result.error?.message))
         }
         event.postValue(HomeViewModelEvent.ShowLoading(View.GONE))
     }

@@ -3,4 +3,5 @@
     <string name="logo_digio_cash">Logo digio cash</string>
     <string name="produtos">Produtos</string>
     <string name="ola_maria">Olá, Maria</string>
+    <string name="error_dafault">Opss, algo deu errado =\\</string>
 </resources>
